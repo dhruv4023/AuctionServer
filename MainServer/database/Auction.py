@@ -44,12 +44,12 @@ def get_auctions_by_user(user_id,startIndex,limit):
 # Function to get one auction by its ID
 def get_one_auctions_by_Id(auction_id):
     auctions_data = auctionCollection.find_one({"_id": ObjectId(auction_id)},{"bid_list":0})
-    
+    uid_fld=["created_by"]
     # If the auction is not found in the main collection, check the endedAuctionCollection
     if auctions_data is None:
         auctions_data = endedAuctionCollection.find_one({"_id": ObjectId(auction_id)},{"bid_list":0})
-    
-    return convert_to_json(setUserName_and_id(list([auctions_data]), ["created_by"]))
+        uid_fld.append("winner")
+    return convert_to_json(setUserName_and_id(list([auctions_data]), uid_fld))
 
 # Function to delete an auction by its ID
 def delete_auction(auction_id):

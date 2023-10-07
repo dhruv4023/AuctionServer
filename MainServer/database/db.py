@@ -8,8 +8,8 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 # Access the environment variables
-# DB_URL = os.getenv("DB_URL")
-DB_URL = "mongodb+srv://dhruv20345:abxy123@cluster0.9bjdlnv.mongodb.net"
+DB_URL = os.getenv("DB_URL")
+print(DB_URL)
 # Adding, not adding the security by Secure Socket Layer
 # Create a MongoDB client with SSL certificate verification disabled
 client = MongoClient(DB_URL, ssl_cert_reqs=ssl.CERT_NONE)
