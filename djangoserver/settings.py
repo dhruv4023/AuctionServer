@@ -37,25 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'rest_framework',
-    'rest_framework.authtoken',
-    'rest_framework_jwt',  
     'django.contrib.staticfiles',
     'corsheaders',
     'MainServer',
 ]
-SIMPLE_JWT = {
-    # ...
-    'USER_ID_FIELD': '_id',
-    'USER_ID_CLAIM': 'user_id',
-    # ...
-}
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-    # ...
-}
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',

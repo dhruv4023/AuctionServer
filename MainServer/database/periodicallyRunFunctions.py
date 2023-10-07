@@ -11,8 +11,3 @@ def set_interval(func, interval=60*60*24*30):
 
     func()
     threading.Timer(interval, interval_function).start()
-# def my_function():
-#     # Define the code to be executed periodically
-#     print("Running my_function...")
-# # Call set_interval to schedule my_function to run every 5 seconds
-# set_interval(my_function, 5)

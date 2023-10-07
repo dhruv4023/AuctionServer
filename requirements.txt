@@ -3,6 +3,5 @@ django===4.1.7
 python-dotenv===1.0.0
 django-cors-headers===3.14.0
 apscheduler
-djangorestframework
-djangorestframework-jwt==1.11.0
-djangorestframework-simplejwt
+dnspython
+python-jose

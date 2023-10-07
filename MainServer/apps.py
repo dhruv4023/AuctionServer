@@ -5,6 +5,8 @@ class MyAppConfig(AppConfig):
     name = 'djangoserver'
 
     def ready(self):
-        from . import scheduler
-        print("scheduler is started...")
-        scheduler.schedule_task()
+        # This method is called when the application is ready to start.
+        # It's a good place to perform any initialization or setup.
+        from . import scheduler  # Import your scheduler module
+        print("Scheduler is started...")
+        scheduler.schedule_task()  # Call a function to start your scheduler

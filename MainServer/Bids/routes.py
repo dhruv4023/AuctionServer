@@ -1,11 +1,10 @@
-
 from django.urls import path
 from MainServer.Bids.controller import *
 
 urlpatterns = [
-    path('add/<str:auction_id>',addNewBid, name="addNewBid"),
-    # path('delete/<str:u_id>/<str:labelId>', deleteLabelController, name="deleteLabel"),
-    # path('edit/<str:u_id>/<str:labelId>', editLabelController, name="editLabel"),
-    # path('changedefault/<str:u_id>/<str:labelId>', changeDefaultLabelController, name="changeDefaultLabel"),
+    # URL pattern to add a new bid for a specific auction
+    path('add/<str:auction_id>', addNewBid, name="addNewBid"),
+
+    # URL pattern to get the bid list for a specific auction with pagination
     path('get/<str:auction_id>/<int:start>/<int:limit>', getBidListByAuctionId, name="getBidListByAuctionId"),
 ]
