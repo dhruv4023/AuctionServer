@@ -32,15 +32,16 @@ def AddNewAuction(request):
 # Define a view to get ended auctions
 @csrf_exempt
 def getEndedAuctions(request,startIndex,limit):
-    try:
+    # try:
         if request.method == 'GET':
             # return HttpResponse(get_ended_auctions(startIndex,limit))
+            # print(startIndex)
             data=get_ended_auctions(startIndex,limit)
             return HttpResponse(data)
         else:
             return HttpResponseBadRequest(json.dumps({"msg": "bad Request"}), content_type='application/json')
-    except:
-        return HttpResponseServerError(json.dumps({"msg": "Server Error"}), content_type='application/json')
+    # except:
+    #     return HttpResponseServerError(json.dumps({"msg": "Server Error"}), content_type='application/json')
 
 # Define a view to get ongoing auctions
 @csrf_exempt

@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 # Access the environment variables
 DB_URL = os.getenv("DB_URL")
+AUTH_SERVER_API = os.getenv("AUTH_SERVER_API")
 print(DB_URL)
 # Adding, not adding the security by Secure Socket Layer
 # Create a MongoDB client with SSL certificate verification disabled
@@ -24,4 +25,3 @@ db = client["SellerApp"]
 auctionCollection = db["auctionCollection"]
 endedAuctionCollection = db["endedAuctionCollection"]
 bidCollection = db["bidCollection"]
-users = db["users"]

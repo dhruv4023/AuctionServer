@@ -139,9 +139,3 @@ ALLOWED_HOSTS = [
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000"
 ]
-
-JWT_SECRET_KEY = os.getenv("JWT_SECRECT")
-from datetime import timedelta
-# Set the token expiration time (optional but recommended)
-JWT_ALGORITHM = 'HS256'  # Use the appropriate algorithm
-JWT_EXPIRATION_DELTA = timedelta(days=1) 

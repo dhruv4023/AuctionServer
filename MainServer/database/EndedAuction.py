@@ -15,8 +15,10 @@ def set_winner_for_ended_auctions():
     ended_auctions = auctionCollection.find({"end_time": {"$lt": current_time}})
     
     for aux in ended_auctions:
-        aux["winner"] = aux["bid_list"][0]["user_id"]
-        
+        try:
+            aux["winner"] = aux["bid_list"][0]["user_id"]
+        except:
+            aux["winner"]= None
         try:
             id = aux["_id"]
             del aux["_id"]
