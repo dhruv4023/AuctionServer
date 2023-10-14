@@ -12,6 +12,7 @@ from MainServer.verifyToken import verifyToken
 def AddNewAuction(request):
     try:
         if request.method == 'POST':
+            
             body = json.loads(request.body)
             user_id = verifyToken(request)
             item_name = body.get("item_name")

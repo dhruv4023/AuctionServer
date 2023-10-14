@@ -14,7 +14,7 @@ def setUserName_and_id(data: list, u_id_fields: list):
             # Retrieve user data based on the user ID from the 'users' collection
             user_data=users.get(user_id)
             if user_data is None and user_id is not None:
-                print("db")
+                print("from db")
                 user_data =  getUserData(user_id)
                 users[user_id]=user_data
             else:    
