@@ -70,11 +70,11 @@ def getUpcomingAuctions(request,startIndex,limit):
 
 # Define a view to get auctions by user
 @csrf_exempt
-def getAuctionsByUser(request,startIndex,limit):
+def getAuctionsByUser(request,userId,startIndex,limit):
     try:
-        user_id = verifyToken(request)
+        # user_id = verifyToken(request)
         if request.method == 'GET':
-            data = get_auctions_by_user(user_id,startIndex,limit)
+            data = get_auctions_by_user(userId,startIndex,limit)
             return HttpResponse(data)
         else:
             return HttpResponseBadRequest(json.dumps({"msg": "bad Request"}), content_type='application/json')
