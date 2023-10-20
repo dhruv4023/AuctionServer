@@ -24,6 +24,33 @@ def add_new_auction(user_id: str, start_time: datetime, end_time: datetime, star
     # Return the ID of the newly created auction
     return result.inserted_id
 
+# Function to add a new auction
+def edit_auction(auction_id: str, user_id: str, start_time: datetime, end_time: datetime, start_price: float, item_name: str):
+    # Create an update query for the specified auction_id
+    update_query = {
+        "_id": ObjectId(auction_id)
+    }
+    
+    # Define the update fields
+    update_fields = {
+        "$set": {
+            "start_time": start_time,
+            "end_time": end_time,
+            "start_price": start_price,
+            "item_name": item_name,
+            "created_by": user_id,
+        }
+    }
+    
+    # Create an UpdateOne object
+    result = auctionCollection.update_one(update_query, update_fields, upsert=False)
+    
+    # Check if the update was successful
+    if result.modified_count == 1:
+        return True
+    else:
+        return False
+    
 # Function to get all upcoming auctions
 def get_upcoming_auctions(startIndex: int = 0, limit: int = 10):
     current_time = datetime.now()
@@ -52,12 +79,12 @@ def get_one_auctions_by_Id(auction_id):
     return convert_to_json(setUserName_and_id(list([auctions_data]), uid_fld))
 
 # Function to delete an auction by its ID
-def delete_auction(auction_id):
+def delete_auction(auction_id,user_id):
     # Convert the auction_id to ObjectId type
     auction_id = ObjectId(auction_id)
-    
+    print(user_id)
     # Delete the auction using the delete_one method
-    result = auctionCollection.delete_one({"_id": auction_id})
+    result = auctionCollection.delete_one({"_id": auction_id,"created_by":user_id})
     
     # Check if the auction was deleted successfully
     if result.deleted_count == 1:

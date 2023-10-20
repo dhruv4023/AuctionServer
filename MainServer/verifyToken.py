@@ -13,3 +13,4 @@ def verifyToken(request):
         
     except ExpiredSignatureError:
         return HttpResponseForbidden(json.dumps({'msg': 'Access token has expired'}), content_type='application/json')
+    

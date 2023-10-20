@@ -4,6 +4,12 @@ from MainServer.Auction.controller import *
 urlpatterns = [
     # URL to add a new auction
     path('add/', AddNewAuction, name="add_auction"),
+    
+    # URL to Edit a auction
+    path('update/<str:auction_id>', EditAuction, name="edit_auction"),
+    
+    # URL to delete a auction
+    path('delete/<str:auction_id>', DelAuction, name="del_auction"),
 
     # URL to get auctions by a specific user with pagination
     path('get/byuser/<str:userId>/<int:startIndex>/<int:limit>', getAuctionsByUser, name="getAuctionsByUser"),

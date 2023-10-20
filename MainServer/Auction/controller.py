@@ -2,7 +2,7 @@ import json
 from jose.exceptions import ExpiredSignatureError
 from django.http import HttpResponse, HttpResponseServerError, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
-from MainServer.database.Auction import add_new_auction,get_one_auctions_by_Id,get_auctions_by_user,get_ongoing_auctions,delete_auction,get_upcoming_auctions
+from MainServer.database.Auction import add_new_auction,edit_auction,get_one_auctions_by_Id,get_auctions_by_user,get_ongoing_auctions,delete_auction,get_upcoming_auctions
 from MainServer.database.EndedAuction import get_ended_auctions
 from MainServer.OtherFun import anyDateTimeTo_datetime_Formate
 from MainServer.verifyToken import verifyToken
@@ -22,6 +22,28 @@ def AddNewAuction(request):
             
             # Attempt to add a new auction
             if add_new_auction(user_id=user_id, item_name=item_name, start_price=start_price, end_time=end_time, start_time=start_time):
+                return HttpResponse(json.dumps({"msg": "Auction Started"}), content_type='application/json')
+            return HttpResponse(json.dumps({"msg": "Auction Not Started"}), content_type='application/json')
+        else:
+            return HttpResponseBadRequest(json.dumps({"msg": "bad Request"}), content_type='application/json')
+
+    except:
+        return HttpResponseServerError(json.dumps({"msg": "Server Error"}), content_type='application/json')
+
+@csrf_exempt
+def EditAuction(request,auction_id):
+    # print(request.method,auction_id)
+    try:
+        if request.method == 'PUT':
+            body = json.loads(request.body)
+            user_id = verifyToken(request)
+            item_name = body.get("item_name")
+            start_price = body.get("start_price")
+            end_time = anyDateTimeTo_datetime_Formate(body.get("end_time"), "%Y-%m-%d %H:%M")
+            start_time = anyDateTimeTo_datetime_Formate(body.get("start_time"), "%Y-%m-%d %H:%M")
+            
+            # Attempt to add a new auction
+            if edit_auction(auction_id=auction_id,user_id=user_id, item_name=item_name, start_price=start_price, end_time=end_time, start_time=start_time):
                 return HttpResponse(json.dumps({"msg": "Auction Started"}), content_type='application/json')
             return HttpResponse(json.dumps({"msg": "Auction Not Started"}), content_type='application/json')
         else:
@@ -91,3 +113,18 @@ def getOneAuctionById(request,auction_id):
             return HttpResponseBadRequest(json.dumps({"msg": "bad Request"}), content_type='application/json')
     except:
         return HttpResponseServerError(json.dumps({"msg": "Server Error"}), content_type='application/json')
+
+# Define a view to get one auction by its ID
+@csrf_exempt
+def DelAuction(request,auction_id):
+    # try:
+        user_id = verifyToken(request)
+        # print(user_id)
+        if request.method == 'DELETE':
+            if  delete_auction(auction_id,user_id):
+                return HttpResponse(json.dumps({"msg": "Delete Successfully"}), content_type='application/json')
+            return HttpResponse(json.dumps({"msg": "Failed to Delete"}), content_type='application/json')
+        else:
+            return HttpResponseBadRequest(json.dumps({"msg": "bad Request"}), content_type='application/json')
+    # except:
+    #     return HttpResponseServerError(json.dumps({"msg": "Server Error"}), content_type='application/json')
